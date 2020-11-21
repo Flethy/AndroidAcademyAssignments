@@ -1,3 +1,10 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="main_margin">16dp</dimen>
+    <dimen name="star_margin">3dp</dimen>
+    <dimen name="actor_margin">8dp</dimen>
+    <dimen name="actor_name_margin">6dp</dimen>
+    <dimen name="movie_name">40sp</dimen>
+    <dimen name="movie_age">12sp</dimen>
+    <dimen name="block_title">14sp</dimen>
+    <dimen name="actor_name">14sp</dimen>
 </resources>
