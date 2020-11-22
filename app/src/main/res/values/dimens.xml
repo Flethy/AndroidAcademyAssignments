@@ -1,10 +1,22 @@
 <resources>
-    <dimen name="main_margin">16dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
     <dimen name="star_margin">3dp</dimen>
     <dimen name="actor_margin">8dp</dimen>
     <dimen name="actor_name_margin">6dp</dimen>
+    <dimen name="movie_age_margin">12dp</dimen>
+    <dimen name="back_line_margin">50dp</dimen>
+    <dimen name="back_icon_margin">8dp</dimen>
+    <dimen name="star_line_margin">8dp</dimen>
+    <dimen name="review_margin">9dp</dimen>
+    <dimen name="block_title_margin">24dp</dimen>
+    <dimen name="actor_line_margin">6dp</dimen>
+
+    <dimen name="back">12sp</dimen>
     <dimen name="movie_name">40sp</dimen>
     <dimen name="movie_age">12sp</dimen>
+    <dimen name="movie_genre">14sp</dimen>
+    <dimen name="movie_review">14sp</dimen>
+    <dimen name="movie_storyline">14sp</dimen>
     <dimen name="block_title">14sp</dimen>
     <dimen name="actor_name">14sp</dimen>
 </resources>
