@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="back">
+        <item name="fontFamily">@font/roboto_thin</item>
+        <item name="android:textSize">@dimen/back</item>
+        <item name="android:textColor">@color/back</item>
+    </style>
+
+    <style name="movie_name">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/movie_name</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="block_title">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/block_title</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="movie_age">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/movie_age</item>
+        <item name="android:textColor">@color/white_text</item>
+    </style>
+
+    <style name="movie_genre">
+        <item name="fontFamily">@font/roboto_thin</item>
+        <item name="android:textSize">@dimen/movie_genre</item>
+        <item name="android:textColor">@color/movie_genre</item>
+    </style>
+
+    <style name="movie_review">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/movie_review</item>
+        <item name="android:textColor">@color/movie_review</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="movie_storyline">
+        <item name="fontFamily">@font/roboto_thin</item>
+        <item name="android:textSize">@dimen/movie_storyline</item>
+        <item name="android:textColor">@color/movie_storyline</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="actor_name">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/actor_name</item>
+        <item name="android:textColor">@color/actor_name</item>
+    </style>
+
+</resources>
