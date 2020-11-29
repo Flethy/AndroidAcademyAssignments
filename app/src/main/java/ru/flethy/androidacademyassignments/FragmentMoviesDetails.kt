@@ -9,10 +9,6 @@ import android.widget.TextView
 
 class FragmentMoviesDetails : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -20,11 +16,9 @@ class FragmentMoviesDetails : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movies_details, container, false)
 
         view?.findViewById<TextView>(R.id.back)
-                ?.apply {
-                    setOnClickListener {
+                ?.setOnClickListener {
                         fragmentManager?.popBackStack()
                     }
-                }
 
         return view
     }

@@ -22,12 +22,14 @@ class FragmentMoviesList : Fragment() {
 
         view?.findViewById<ImageView>(R.id.poster_background)
                 ?.setOnClickListener {
-                        fragmentManager?.beginTransaction()
-                                ?.apply {
+                        fragmentManager?.let {
+                            it.beginTransaction()
+                                .apply {
                                     addToBackStack(null)
                                     add(R.id.container, FragmentMoviesDetails())
                                     commit()
                                 }
+                        }
                 }
 
         return view

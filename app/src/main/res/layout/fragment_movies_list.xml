@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/movies_list_title" />
 
         <ImageView
-            android:id="@+id/poster_avengers_end_game"
+            android:id="@+id/poster"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -57,8 +57,8 @@
             android:background="@drawable/age_window_for_poster"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/avengers_movie_age"
-            app:layout_constraintStart_toStartOf="@+id/poster_avengers_end_game"
-            app:layout_constraintTop_toTopOf="@+id/poster_avengers_end_game" />
+            app:layout_constraintStart_toStartOf="@+id/poster"
+            app:layout_constraintTop_toTopOf="@+id/poster" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_marginEnd="@dimen/poster_content_margin"
             android:src="@drawable/ic_empty_like"
             app:layout_constraintBottom_toBottomOf="@+id/movie_age"
-            app:layout_constraintEnd_toEndOf="@+id/poster_avengers_end_game"
+            app:layout_constraintEnd_toEndOf="@+id/poster"
             app:layout_constraintTop_toTopOf="@+id/movie_age" />
 
         <TextView
@@ -76,63 +76,63 @@
             android:layout_marginStart="@dimen/poster_content_margin"
             android:layout_marginBottom="@dimen/movie_genre_for_poster_margin"
             android:text="@string/avengers_movie_genre"
-            app:layout_constraintBottom_toTopOf="@+id/star_avengers_end_game_1"
-            app:layout_constraintStart_toStartOf="@+id/poster_avengers_end_game" />
+            app:layout_constraintBottom_toTopOf="@+id/star_1"
+            app:layout_constraintStart_toStartOf="@+id/poster" />
 
         <ImageView
-            android:id="@+id/star_avengers_end_game_1"
+            android:id="@+id/star_1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_height_for_poster"
             android:layout_marginStart="@dimen/poster_content_margin"
             android:layout_marginBottom="@dimen/poster_content_margin"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_star"
-            app:layout_constraintBottom_toBottomOf="@+id/poster_avengers_end_game"
-            app:layout_constraintStart_toStartOf="@+id/poster_avengers_end_game" />
+            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            app:layout_constraintStart_toStartOf="@+id/poster" />
 
         <ImageView
-            android:id="@+id/star_avengers_end_game_2"
+            android:id="@+id/star_2"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_height_for_poster"
             android:src="@drawable/ic_star"
             android:adjustViewBounds="true"
             android:layout_marginStart="@dimen/star_margin"
-            app:layout_constraintTop_toTopOf="@+id/star_avengers_end_game_1"
-            app:layout_constraintBottom_toBottomOf="@+id/star_avengers_end_game_1"
-            app:layout_constraintStart_toEndOf="@+id/star_avengers_end_game_1" />
+            app:layout_constraintTop_toTopOf="@+id/star_1"
+            app:layout_constraintBottom_toBottomOf="@+id/star_1"
+            app:layout_constraintStart_toEndOf="@+id/star_1" />
 
         <ImageView
-            android:id="@+id/star_avengers_end_game_3"
+            android:id="@+id/star_3"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_height_for_poster"
             android:src="@drawable/ic_star"
             android:layout_marginStart="@dimen/star_margin"
             android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="@+id/star_avengers_end_game_2"
-            app:layout_constraintBottom_toBottomOf="@+id/star_avengers_end_game_2"
-            app:layout_constraintStart_toEndOf="@+id/star_avengers_end_game_2" />
+            app:layout_constraintTop_toTopOf="@+id/star_2"
+            app:layout_constraintBottom_toBottomOf="@+id/star_2"
+            app:layout_constraintStart_toEndOf="@+id/star_2" />
 
         <ImageView
-            android:id="@+id/star_avengers_end_game_4"
+            android:id="@+id/star_4"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_height_for_poster"
             android:src="@drawable/ic_star"
             android:layout_marginStart="@dimen/star_margin"
             android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="@+id/star_avengers_end_game_3"
-            app:layout_constraintBottom_toBottomOf="@+id/star_avengers_end_game_3"
-            app:layout_constraintStart_toEndOf="@+id/star_avengers_end_game_3" />
+            app:layout_constraintTop_toTopOf="@+id/star_3"
+            app:layout_constraintBottom_toBottomOf="@+id/star_3"
+            app:layout_constraintStart_toEndOf="@+id/star_3" />
 
         <ImageView
-            android:id="@+id/star_avengers_end_game_5"
+            android:id="@+id/star_5"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/star_height_for_poster"
             android:src="@drawable/ic_empty_star"
             android:layout_marginStart="@dimen/star_margin"
             android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="@+id/star_avengers_end_game_4"
-            app:layout_constraintBottom_toBottomOf="@+id/star_avengers_end_game_4"
-            app:layout_constraintStart_toEndOf="@+id/star_avengers_end_game_4" />
+            app:layout_constraintTop_toTopOf="@+id/star_4"
+            app:layout_constraintBottom_toBottomOf="@+id/star_4"
+            app:layout_constraintStart_toEndOf="@+id/star_4" />
 
         <TextView
             android:id="@+id/movie_review_count"
@@ -141,13 +141,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/review_margin_for_poster"
             android:text="@string/avengers_movie_review"
-            app:layout_constraintBottom_toBottomOf="@+id/star_avengers_end_game_5"
-            app:layout_constraintStart_toEndOf="@+id/star_avengers_end_game_5"
-            app:layout_constraintTop_toTopOf="@+id/star_avengers_end_game_5"
+            app:layout_constraintBottom_toBottomOf="@+id/star_5"
+            app:layout_constraintStart_toEndOf="@+id/star_5"
+            app:layout_constraintTop_toTopOf="@+id/star_5"
             app:layout_constraintVertical_bias="0.75" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/movie_name"
             style="@style/block_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
             app:layout_constraintBottom_toTopOf="@+id/avengers_movie_duration"
             app:layout_constraintEnd_toEndOf="@+id/poster_background"
             app:layout_constraintStart_toStartOf="@+id/poster_background"
-            app:layout_constraintTop_toBottomOf="@+id/poster_avengers_end_game" />
+            app:layout_constraintTop_toBottomOf="@+id/poster" />
 
         <TextView
             android:id="@+id/avengers_movie_duration"
@@ -170,7 +170,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/poster_background"
             app:layout_constraintEnd_toEndOf="@+id/poster_background"
             app:layout_constraintStart_toStartOf="@+id/poster_background"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/movie_name" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
