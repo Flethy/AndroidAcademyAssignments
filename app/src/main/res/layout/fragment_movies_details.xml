@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/movie_details_background"
-    tools:context=".MovieDetailsActivity">
+    android:background="@color/background"
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,13 +24,14 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+            android:id="@+id/back"
             style="@style/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:drawableStartCompat="@drawable/ic_back"
             android:drawablePadding="@dimen/back_icon_margin"
             android:text="@string/back"
-            android:layout_marginTop="@dimen/back_line_margin"
+            android:layout_marginTop="@dimen/content_margin_top"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toTopOf="parent" />
 
