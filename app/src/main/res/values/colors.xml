@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="dark_white">#ECECEC</color>
     <color name="background">#191926</color>
+    <color name="back">#6D6D80</color>
+
+    <!-- Movie -->
+    <color name="actor_name">#D8D8D8</color>
     <color name="movie_genre">#FF3466</color>
     <color name="movie_review">#6D6D80</color>
     <color name="movie_storyline">#FFFFFF</color>
     <color name="movie_duration">#565665</color>
-    <color name="actor_name">#D8D8D8</color>
-    <color name="back">#6D6D80</color>
 
-    <color name="white">#FFFFFF</color>
-    <color name="dark_white">#ECECEC</color>
 </resources>

@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:drawableStartCompat="@drawable/ic_back"
-            android:drawablePadding="@dimen/back_icon_margin"
+            android:drawablePadding="@dimen/icon_margin"
             android:text="@string/back"
             android:layout_marginTop="@dimen/content_margin_top"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="@string/avengers_movie_age"
             style="@style/movie_age"
-            android:layout_marginBottom="@dimen/movie_age_margin"
+            android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintBottom_toTopOf="@+id/movie_name"
             app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_star"
-            android:layout_marginTop="@dimen/star_line_margin"
+            android:layout_marginTop="@dimen/margin_8"
             app:layout_constraintTop_toBottomOf="@id/movie_genre"
             app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:text="@string/avengers_movie_review"
             style="@style/movie_review"
-            android:layout_marginStart="@dimen/review_margin"
+            android:layout_marginStart="@dimen/margin_8"
             app:layout_constraintTop_toTopOf="@+id/star_5"
             app:layout_constraintBottom_toBottomOf="@+id/star_5"
             app:layout_constraintStart_toEndOf="@+id/star_5" />
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:text="@string/movie_storyline"
             style="@style/block_title"
-            android:layout_marginTop="@dimen/block_title_margin"
+            android:layout_marginTop="@dimen/margin_24"
             app:layout_constraintTop_toBottomOf="@id/star_1"
             app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:text="@string/movie_cast"
             style="@style/block_title"
-            android:layout_marginTop="@dimen/block_title_margin"
+            android:layout_marginTop="@dimen/margin_24"
             app:layout_constraintTop_toBottomOf="@id/movie_storyline"
             app:layout_constraintStart_toStartOf="@+id/guideline_start" />
 
@@ -165,7 +165,7 @@
             android:src="@drawable/robert_downey_jr"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:1"
-            android:layout_marginTop="@dimen/actor_line_margin"
+            android:layout_marginTop="@dimen/margin_8"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toBottomOf="@id/cast"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"

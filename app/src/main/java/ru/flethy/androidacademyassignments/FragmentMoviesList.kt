@@ -24,11 +24,9 @@ class FragmentMoviesList : Fragment() {
                 ?.setOnClickListener {
                         fragmentManager?.let {
                             it.beginTransaction()
-                                .apply {
-                                    addToBackStack(null)
-                                    add(R.id.container, FragmentMoviesDetails())
-                                    commit()
-                                }
+                                .addToBackStack(null)
+                                .add(R.id.container, FragmentMoviesDetails())
+                                .commit()
                         }
                 }
 
