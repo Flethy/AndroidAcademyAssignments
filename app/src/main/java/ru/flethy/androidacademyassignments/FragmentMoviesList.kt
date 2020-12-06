@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import ru.flethy.androidacademyassignments.FragmentMoviesDetails.Companion.MOVIE_ID_KEY
 import ru.flethy.androidacademyassignments.domain.MoviesDataSource
 import ru.flethy.androidacademyassignments.model.Movie
 
@@ -46,29 +47,42 @@ class FragmentMoviesList : Fragment() {
     }
 
     override fun onDetach() {
-        super.onDetach()
         moviesRecyclerView = null
+        super.onDetach()
     }
 
-    private val clickListener = object : OnRecyclerItemClicked {
+    private val clickListener = object : OnMovieClick {
         override fun onClick(movie: Movie) {
-            moviesRecyclerView?.let { rv ->
-                if (movie.actors != null) {
-                    val movieDetails = FragmentMoviesDetails()
-                    val bundle = Bundle()
-                    bundle.putInt(MOVIE_ID_KEY, movie.id)
-                    movieDetails.arguments = bundle
+            processMovieClick(movie)
+        }
 
-                    fragmentManager?.let {
-                        it.beginTransaction()
-                                .addToBackStack(null)
-                                .add(R.id.container, movieDetails)
-                                .commit()
-                    }
-                    return
-                }
+        private fun processMovieClick(movie: Movie) {
+            if (movie.actors?.isEmpty() == true) {
+                showIncompleteInfoMessage(movie)
+            } else {
+                navigateToMovieDetails(movie)
+            }
+        }
+
+        private fun navigateToMovieDetails(movie: Movie) {
+
+            val movieDetails = FragmentMoviesDetails()
+            val bundle = Bundle()
+            bundle.putInt(MOVIE_ID_KEY, movie.id)
+            movieDetails.arguments = bundle
+
+            fragmentManager?.let {
+                it.beginTransaction()
+                        .addToBackStack(null)
+                        .add(R.id.container, movieDetails)
+                        .commit()
+            }
+        }
+
+        private fun showIncompleteInfoMessage(movie: Movie) {
+            moviesRecyclerView?.let {
                 Snackbar.make(
-                        rv,
+                        it,
                         getString(R.string.fragment_movie_chosen_text, movie.name),
                         Snackbar.LENGTH_SHORT)
                         .show()
@@ -77,7 +91,6 @@ class FragmentMoviesList : Fragment() {
     }
 
     companion object {
-        const val MOVIE_ID_KEY = "movieId"
         const val VERTICAL_SPAN_COUNT = 2
         const val HORIZONTAL_SPAN_COUNT = 4
     }

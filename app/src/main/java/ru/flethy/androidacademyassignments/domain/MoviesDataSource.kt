@@ -1,6 +1,7 @@
 package ru.flethy.androidacademyassignments.domain
 
 import ru.flethy.androidacademyassignments.R
+import ru.flethy.androidacademyassignments.model.Actor
 import ru.flethy.androidacademyassignments.model.Movie
 
 class MoviesDataSource {
@@ -26,8 +27,8 @@ class MoviesDataSource {
                         5,
                         R.drawable.poster_tenet,
                         null,
-                        null,
-                        null,
+                        "",
+                        emptyList<Actor>(),
                         true),
                 Movie(3,
                         "Black Widow",
@@ -38,8 +39,8 @@ class MoviesDataSource {
                         4,
                         R.drawable.poster_black_widow,
                         null,
-                        null,
-                        null,
+                        "",
+                        emptyList<Actor>(),
                         false),
                 Movie(4,
                         "Wonder Woman 1984",
@@ -50,8 +51,8 @@ class MoviesDataSource {
                         5,
                         R.drawable.poster_wonder_woman_1984,
                         null,
-                        null,
-                        null,
+                        "",
+                        emptyList<Actor>(),
                         false)
         )
     }

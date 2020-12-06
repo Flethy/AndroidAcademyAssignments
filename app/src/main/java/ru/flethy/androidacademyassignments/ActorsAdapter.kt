@@ -10,7 +10,7 @@ import ru.flethy.androidacademyassignments.model.Actor
 
 class ActorsAdapter(): RecyclerView.Adapter<ActorsViewHolder>() {
 
-    private lateinit var actors: List<Actor>
+    private var actors: List<Actor> = emptyList<Actor>()
 
     fun bindActors(actorsList: List<Actor>) {
         actors = actorsList

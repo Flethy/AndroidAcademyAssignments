@@ -10,7 +10,7 @@ data class Movie(
     val rating: Int,
     val poster: Int,
     val backgroundPoster: Int?,
-    val storyline: String?,
+    val storyline: String,
     val actors: List<Actor>?,
     val isLiked: Boolean,
 )

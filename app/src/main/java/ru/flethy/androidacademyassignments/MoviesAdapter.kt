@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.flethy.androidacademyassignments.model.Movie
 
 
-class MoviesAdapter(private val clickListener: OnRecyclerItemClicked): RecyclerView.Adapter<MoviesViewHolder>() {
+class MoviesAdapter(private val clickListener: OnMovieClick): RecyclerView.Adapter<MoviesViewHolder>() {
 
-    private lateinit var movies: List<Movie>
+    private var movies: List<Movie> = emptyList<Movie>()
 
     fun bindMovies(moviesList: List<Movie>) {
         movies = moviesList
@@ -45,55 +45,36 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val star3: ImageView = itemView.findViewById(R.id.star_3)
     private val star4: ImageView = itemView.findViewById(R.id.star_4)
     private val star5: ImageView = itemView.findViewById(R.id.star_5)
+    private val starViews = listOf(star1, star2, star3, star4, star5)
     private val like: ImageView = itemView.findViewById(R.id.like)
 
     fun onBind(movie: Movie) {
 
         movieName.text = movie.name
-        movieAge.text = "${movie.age}+"
+        movieAge.text = context.getString(R.string.movie_age, movie.age)
         movieGenre.text = movie.genre
-        movieReviewCount.text = "${movie.reviewCount} reviews"
-        movieDuration.text = "${movie.duration} min"
-
-        star1.setImageResource(
-                when (movie.rating) {
-                    1,2,3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star2.setImageResource(
-                when (movie.rating) {
-                    2,3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star3.setImageResource(
-                when (movie.rating) {
-                    3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star4.setImageResource(
-                when (movie.rating) {
-                    4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star5.setImageResource(
-                when (movie.rating) {
-                    5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-
+        movieReviewCount.text = context.getString(R.string.movie_review, movie.reviewCount)
+        movieDuration.text = context.getString(R.string.movie_duration, movie.duration)
+        setRating(movie.rating, starViews)
         like.setImageResource(if (movie.isLiked) R.drawable.ic_like else R.drawable.ic_empty_like)
-
         moviePoster.setImageResource(movie.poster)
 
     }
 
+    private fun setRating(rating: Int, starViews: List<ImageView>) {
+        for (i in 0 until rating) {
+            starViews[i].setImageResource(R.drawable.ic_star)
+        }
+        for (i in rating until starViews.size) {
+            starViews[i].setImageResource(R.drawable. ic_empty_star)
+        }
+    }
+
 }
 
-interface OnRecyclerItemClicked {
+interface OnMovieClick {
     fun onClick(movie: Movie)
 }
+
+private val RecyclerView.ViewHolder.context
+    get() = this.itemView.context

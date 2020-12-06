@@ -52,60 +52,45 @@ class FragmentMoviesDetails : Fragment() {
     }
 
     override fun onDetach() {
-        super.onDetach()
         actorsRecyclerView = null
+        super.onDetach()
     }
 
     private fun insertMovieData(view: View, movie: Movie?) {
-        view.findViewById<TextView>(R.id.movie_name).text = movie?.name
-        view.findViewById<TextView>(R.id.movie_genre).text = movie?.genre
-        view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie?.age)
-        view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie?.reviewCount)
-        view.findViewById<TextView>(R.id.movie_storyline).text = movie?.storyline
-        view.findViewById<ImageView>(R.id.movie_poster).setImageResource(movie?.backgroundPoster ?: R.color.background)
 
-        val star1 = view.findViewById<ImageView>(R.id.star_1)
-        val star2 = view.findViewById<ImageView>(R.id.star_2)
-        val star3 = view.findViewById<ImageView>(R.id.star_3)
-        val star4 = view.findViewById<ImageView>(R.id.star_4)
-        val star5 = view.findViewById<ImageView>(R.id.star_5)
+        if (movie != null) {
+            view.findViewById<TextView>(R.id.movie_name).text = movie.name
+            view.findViewById<TextView>(R.id.movie_genre).text = movie.genre
+            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie.age)
+            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie.reviewCount)
+            view.findViewById<TextView>(R.id.movie_storyline).text = movie.storyline
+            view.findViewById<ImageView>(R.id.movie_poster).setImageResource(movie.backgroundPoster ?: R.color.background)
 
-        actorsRecyclerView = view.findViewById<RecyclerView>(R.id.actors_recyclerView)
-        actorsRecyclerView?.adapter = ActorsAdapter()
+            val star1 = view.findViewById<ImageView>(R.id.star_1)
+            val star2 = view.findViewById<ImageView>(R.id.star_2)
+            val star3 = view.findViewById<ImageView>(R.id.star_3)
+            val star4 = view.findViewById<ImageView>(R.id.star_4)
+            val star5 = view.findViewById<ImageView>(R.id.star_5)
 
-        val layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        actorsRecyclerView?.layoutManager = layoutManager
+            val starViews = listOf(star1, star2, star3, star4, star5)
+            setRating(movie.rating, starViews)
 
-        star1.setImageResource(
-                when (movie?.rating) {
-                    1,2,3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star2.setImageResource(
-                when (movie?.rating) {
-                    2,3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star3.setImageResource(
-                when (movie?.rating) {
-                    3,4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star4.setImageResource(
-                when (movie?.rating) {
-                    4,5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
-        star5.setImageResource(
-                when (movie?.rating) {
-                    5 -> R.drawable.ic_star
-                    else -> R.drawable.ic_empty_star
-                }
-        )
+            actorsRecyclerView = view.findViewById<RecyclerView>(R.id.actors_recyclerView)
+            actorsRecyclerView?.adapter = ActorsAdapter()
+
+            val layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            actorsRecyclerView?.layoutManager = layoutManager
+        } else
+            return
+    }
+
+    private fun setRating(rating: Int, starViews: List<ImageView>) {
+        for (i in 0 until rating) {
+            starViews[i].setImageResource(R.drawable.ic_star)
+        }
+        for (i in rating until starViews.size) {
+            starViews[i].setImageResource(R.drawable. ic_empty_star)
+        }
     }
 
     companion object {
