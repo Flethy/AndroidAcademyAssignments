@@ -20,4 +20,11 @@
     <string name="actor_3">Mark Ruffalo</string>
     <string name="actor_4">Chris Hemsworth</string>
 
+    <!-- Strings for movie data -->
+    <string name="fragment_movie_chosen_text">No data for movie \"%1$s\"</string>
+    <string name="movie_age">%1$d+</string>
+    <string name="movie_review">%1$d Reviews</string>
+    <string name="movie_duration">%1$d min</string>
+
+
 </resources>
