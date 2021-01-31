@@ -1,7 +1,6 @@
 package ru.flethy.androidacademyassignments.model
 
-data class Actor(
+data class Genre (
         val id: Int,
-        val name: String,
-        val imageUrl: String
+        val name: String
         )

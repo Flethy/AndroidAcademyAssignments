@@ -2,15 +2,15 @@ package ru.flethy.androidacademyassignments.model
 
 data class Movie(
     val id: Int,
-    val name: String,
-    val age: Int,
-    val genre: String,
+    val title: String,
+    val pgAge: Int,
+    val genres: List<Genre>,
     val reviewCount: Int,
-    val duration: Int,
+    val runningTime: Int,
     val rating: Int,
-    val poster: Int,
-    val backgroundPoster: Int?,
-    val storyline: String,
-    val actors: List<Actor>?,
-    val isLiked: Boolean,
+    val imageUrl: String,
+    val detailImageUrl: String,
+    val storyLine: String,
+    val actors: List<Actor>,
+    val isLiked: Boolean
 )
