@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 import ru.flethy.androidacademyassignments.FragmentMoviesDetails.Companion.MOVIE_ID_KEY
-import ru.flethy.androidacademyassignments.domain.MoviesDataSource
 import ru.flethy.androidacademyassignments.model.Movie
 
 
 class FragmentMoviesList : Fragment() {
 
     private var moviesRecyclerView: RecyclerView? = null
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +36,26 @@ class FragmentMoviesList : Fragment() {
                              else HORIZONTAL_SPAN_COUNT
         val layoutManager = GridLayoutManager(context, countOfColumns)
         moviesRecyclerView?.layoutManager = layoutManager
-
     }
 
     override fun onStart() {
         super.onStart()
-        (moviesRecyclerView?.adapter as? MoviesAdapter)?.apply {
-            bindMovies(MoviesDataSource().getMovies())
+
+        coroutineScope.launch {
+            Repository.loadMoviesToRepository(requireContext())
+            (moviesRecyclerView?.adapter as? MoviesAdapter)?.apply {
+                bindMovies(Repository.moviesList)
+            }
+
+            launch(Dispatchers.Main) {
+                moviesRecyclerView?.adapter?.notifyDataSetChanged()
+            }
         }
     }
 
     override fun onDetach() {
         moviesRecyclerView = null
+        coroutineScope.cancel()
         super.onDetach()
     }
 
@@ -57,11 +65,7 @@ class FragmentMoviesList : Fragment() {
         }
 
         private fun processMovieClick(movie: Movie) {
-            if (movie.actors?.isEmpty() == true) {
-                showIncompleteInfoMessage(movie)
-            } else {
                 navigateToMovieDetails(movie)
-            }
         }
 
         private fun navigateToMovieDetails(movie: Movie) {
@@ -76,16 +80,6 @@ class FragmentMoviesList : Fragment() {
                         .addToBackStack(null)
                         .add(R.id.container, movieDetails)
                         .commit()
-            }
-        }
-
-        private fun showIncompleteInfoMessage(movie: Movie) {
-            moviesRecyclerView?.let {
-                Snackbar.make(
-                        it,
-                        getString(R.string.fragment_movie_chosen_text, movie.name),
-                        Snackbar.LENGTH_SHORT)
-                        .show()
             }
         }
     }
