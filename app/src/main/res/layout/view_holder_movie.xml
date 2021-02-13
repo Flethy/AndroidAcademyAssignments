@@ -24,12 +24,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:foreground="@drawable/poster_gradient"
-        tools:src="@tools:sample/avatars"
         android:background="@drawable/round_corners"
+        android:foreground="@drawable/poster_gradient"
         app:layout_constraintEnd_toEndOf="@+id/poster_background"
         app:layout_constraintStart_toStartOf="@+id/poster_background"
-        app:layout_constraintTop_toTopOf="@+id/poster_background" />
+        app:layout_constraintTop_toTopOf="@+id/poster_background"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/movie_age"
@@ -141,7 +141,6 @@
         android:layout_marginEnd="@dimen/margin_8"
         android:layout_marginTop="@dimen/poster_content_margin"
         tools:text="@string/avengers_movie_name"
-        android:maxLines="1"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/movie_duration"
         app:layout_constraintEnd_toEndOf="@+id/poster_background"

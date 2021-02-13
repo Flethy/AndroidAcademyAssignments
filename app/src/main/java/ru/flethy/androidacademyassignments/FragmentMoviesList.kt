@@ -43,12 +43,13 @@ class FragmentMoviesList : Fragment() {
 
         coroutineScope.launch {
             Repository.loadMoviesToRepository(requireContext())
-            (moviesRecyclerView?.adapter as? MoviesAdapter)?.apply {
-                bindMovies(Repository.moviesList)
-            }
 
             launch(Dispatchers.Main) {
-                moviesRecyclerView?.adapter?.notifyDataSetChanged()
+                val moviesAdapter: MoviesAdapter = moviesRecyclerView?.adapter as MoviesAdapter
+                moviesAdapter.notifyDataSetChanged()
+                moviesAdapter.apply {
+                    bindMovies(Repository.moviesList)
+                }
             }
         }
     }
