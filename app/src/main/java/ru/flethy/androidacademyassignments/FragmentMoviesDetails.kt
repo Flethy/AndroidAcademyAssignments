@@ -10,12 +10,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import ru.flethy.androidacademyassignments.data.JsonMovieRepository
 import ru.flethy.androidacademyassignments.model.Movie
 
 class FragmentMoviesDetails : Fragment() {
 
+    private lateinit var movieRepository: JsonMovieRepository
+
     private var actorsRecyclerView: RecyclerView? = null
     private var movie: Movie? = null
+
+    private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -34,17 +43,22 @@ class FragmentMoviesDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            val movieId = it.getInt(MOVIE_ID_KEY)
-            movie = Repository.moviesList.find { it.id == movieId }
-        }
-        insertMovieData(view, movie)
-    }
+        movieRepository = JsonMovieRepository(requireContext())
 
-    override fun onStart() {
-        super.onStart()
-        (actorsRecyclerView?.adapter as? ActorsAdapter)?.apply {
-            movie?.actors?.let { bindActors(it) }
+        coroutineScope.launch {
+            arguments?.let {
+                val movieId = it.getInt(MOVIE_ID_KEY)
+                movie = movieRepository.loadMovie(movieId)
+            }
+            launch(Dispatchers.Main) {
+                insertMovieData(view, movie)
+
+                val actorsAdapter: ActorsAdapter = actorsRecyclerView?.adapter as ActorsAdapter
+                actorsAdapter.notifyDataSetChanged()
+                actorsAdapter.apply {
+                    movie?.actors?.let { bindActors(it) }
+                }
+            }
         }
     }
 
@@ -73,11 +87,8 @@ class FragmentMoviesDetails : Fragment() {
             setRating(movie.rating, starViews)
 
             actorsRecyclerView = view.findViewById(R.id.actors_recyclerView)
-            val adapter = ActorsAdapter()
-            actorsRecyclerView?.adapter = adapter
-
-            val layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            actorsRecyclerView?.layoutManager = layoutManager
+            actorsRecyclerView?.adapter = ActorsAdapter()
+            actorsRecyclerView?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         }
     }
 

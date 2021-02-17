@@ -10,10 +10,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
 import ru.flethy.androidacademyassignments.FragmentMoviesDetails.Companion.MOVIE_ID_KEY
+import ru.flethy.androidacademyassignments.data.JsonMovieRepository
 import ru.flethy.androidacademyassignments.model.Movie
 
 
 class FragmentMoviesList : Fragment() {
+
+    private lateinit var movieRepository: JsonMovieRepository
+
+    private var movies: List<Movie> = emptyList()
 
     private var moviesRecyclerView: RecyclerView? = null
     private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
@@ -41,14 +46,16 @@ class FragmentMoviesList : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        movieRepository = JsonMovieRepository(requireContext())
+
         coroutineScope.launch {
-            Repository.loadMoviesToRepository(requireContext())
+            movies = movieRepository.loadMovies()
 
             launch(Dispatchers.Main) {
                 val moviesAdapter: MoviesAdapter = moviesRecyclerView?.adapter as MoviesAdapter
                 moviesAdapter.notifyDataSetChanged()
                 moviesAdapter.apply {
-                    bindMovies(Repository.moviesList)
+                    bindMovies(movies)
                 }
             }
         }
