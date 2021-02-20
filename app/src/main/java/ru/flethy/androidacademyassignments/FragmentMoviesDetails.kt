@@ -14,12 +14,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import ru.flethy.androidacademyassignments.data.JsonMovieRepository
 import ru.flethy.androidacademyassignments.model.Movie
 
 class FragmentMoviesDetails : Fragment() {
-
-    private lateinit var movieRepository: JsonMovieRepository
 
     private var actorsRecyclerView: RecyclerView? = null
     private var movie: Movie? = null
@@ -42,8 +39,6 @@ class FragmentMoviesDetails : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        movieRepository = JsonMovieRepository(requireContext())
 
         coroutineScope.launch {
             arguments?.let {
