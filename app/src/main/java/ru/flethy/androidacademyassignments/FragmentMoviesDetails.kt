@@ -47,8 +47,7 @@ class FragmentMoviesDetails : Fragment() {
 
         coroutineScope.launch {
             arguments?.let {
-                val movieId = it.getInt(MOVIE_ID_KEY)
-                movie = movieRepository.loadMovie(movieId)
+                movie = it.getSerializable(MOVIE_ID_KEY) as Movie?
             }
             launch(Dispatchers.Main) {
                 insertMovieData(view, movie)

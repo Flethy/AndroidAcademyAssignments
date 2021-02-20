@@ -80,7 +80,7 @@ class FragmentMoviesList : Fragment() {
 
             val movieDetails = FragmentMoviesDetails()
             val bundle = Bundle()
-            bundle.putInt(MOVIE_ID_KEY, movie.id)
+            bundle.putSerializable(MOVIE_ID_KEY, movie)
             movieDetails.arguments = bundle
 
             fragmentManager?.let {
