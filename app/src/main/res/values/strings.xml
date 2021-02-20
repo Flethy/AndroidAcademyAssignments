@@ -26,5 +26,6 @@
     <string name="movie_review">%1$d Reviews</string>
     <string name="movie_duration">%1$d min</string>
 
+    <string name="error_load_movie_details">Download failed</string>
 
 </resources>

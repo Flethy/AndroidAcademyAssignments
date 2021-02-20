@@ -16,6 +16,7 @@ class MoviesAdapter(private val clickListener: OnMovieClick): RecyclerView.Adapt
 
     fun bindMovies(moviesList: List<Movie>) {
         movies = moviesList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {

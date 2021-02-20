@@ -15,6 +15,7 @@ class ActorsAdapter(): RecyclerView.Adapter<ActorsViewHolder>() {
 
     fun bindActors(actorsList: List<Actor>) {
         actors = actorsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorsViewHolder {

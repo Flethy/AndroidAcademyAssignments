@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 import ru.flethy.androidacademyassignments.model.Movie
 
 class FragmentMoviesDetails : Fragment() {
@@ -43,12 +41,15 @@ class FragmentMoviesDetails : Fragment() {
         coroutineScope.launch {
             arguments?.let {
                 movie = it.getSerializable(MOVIE_ID_KEY) as Movie?
+                if (movie == null) {
+                    cancel()
+                    Snackbar.make(view, R.string.error_load_movie_details, Snackbar.LENGTH_SHORT).show()
+                }
             }
-            launch(Dispatchers.Main) {
-                insertMovieData(view, movie)
+            launch(Dispatchers.Default) {
+                insertMovieData(view)
 
                 val actorsAdapter: ActorsAdapter = actorsRecyclerView?.adapter as ActorsAdapter
-                actorsAdapter.notifyDataSetChanged()
                 actorsAdapter.apply {
                     movie?.actors?.let { bindActors(it) }
                 }
@@ -61,15 +62,14 @@ class FragmentMoviesDetails : Fragment() {
         super.onDetach()
     }
 
-    private fun insertMovieData(view: View, movie: Movie?) {
+    private fun insertMovieData(view: View) {
 
-        if (movie != null) {
-            view.findViewById<TextView>(R.id.movie_name).text = movie.title
-            view.findViewById<TextView>(R.id.movie_genre).text = movie.genres.joinToString { it.name }
-            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie.pgAge)
-            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie.reviewCount)
-            view.findViewById<TextView>(R.id.movie_storyline).text = movie.storyLine
-            view.findViewById<ImageView>(R.id.movie_poster).load(movie.detailImageUrl)
+            view.findViewById<TextView>(R.id.movie_name).text = movie?.title
+            view.findViewById<TextView>(R.id.movie_genre).text = movie?.genres?.joinToString { it.name }
+            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie?.pgAge)
+            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie?.reviewCount)
+            view.findViewById<TextView>(R.id.movie_storyline).text = movie?.storyLine
+            view.findViewById<ImageView>(R.id.movie_poster).load(movie?.detailImageUrl)
 
             val star1 = view.findViewById<ImageView>(R.id.star_1)
             val star2 = view.findViewById<ImageView>(R.id.star_2)
@@ -78,12 +78,11 @@ class FragmentMoviesDetails : Fragment() {
             val star5 = view.findViewById<ImageView>(R.id.star_5)
 
             val starViews = listOf(star1, star2, star3, star4, star5)
-            setRating(movie.rating, starViews)
+            movie?.rating?.let { setRating(it, starViews) }
 
             actorsRecyclerView = view.findViewById(R.id.actors_recyclerView)
             actorsRecyclerView?.adapter = ActorsAdapter()
             actorsRecyclerView?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        }
     }
 
     private fun setRating(rating: Int, starViews: List<ImageView>) {

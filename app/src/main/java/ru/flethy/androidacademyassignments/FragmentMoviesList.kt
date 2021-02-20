@@ -53,7 +53,6 @@ class FragmentMoviesList : Fragment() {
 
             launch(Dispatchers.Main) {
                 val moviesAdapter: MoviesAdapter = moviesRecyclerView?.adapter as MoviesAdapter
-                moviesAdapter.notifyDataSetChanged()
                 moviesAdapter.apply {
                     bindMovies(movies)
                 }
