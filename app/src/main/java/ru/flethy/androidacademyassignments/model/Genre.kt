@@ -1,3 +1,5 @@
 package ru.flethy.androidacademyassignments.model
 
-data class Genre (val id: Int, val name: String)
+import java.io.Serializable
+
+data class Genre (val id: Int, val name: String) : Serializable

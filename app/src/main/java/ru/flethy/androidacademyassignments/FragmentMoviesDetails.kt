@@ -19,8 +19,6 @@ class FragmentMoviesDetails : Fragment() {
     private var actorsRecyclerView: RecyclerView? = null
     private var movie: Movie? = null
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO + Job())
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -38,23 +36,19 @@ class FragmentMoviesDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        coroutineScope.launch {
-            arguments?.let {
-                movie = it.getSerializable(MOVIE_ID_KEY) as Movie?
-                if (movie == null) {
-                    cancel()
-                    Snackbar.make(view, R.string.error_load_movie_details, Snackbar.LENGTH_SHORT).show()
-                }
-            }
-            launch(Dispatchers.Default) {
-                insertMovieData(view)
-
-                val actorsAdapter: ActorsAdapter = actorsRecyclerView?.adapter as ActorsAdapter
-                actorsAdapter.apply {
-                    movie?.actors?.let { bindActors(it) }
-                }
+        arguments?.let {
+            movie = it.getSerializable(MOVIE_ID_KEY) as Movie?
+        }
+        if (movie == null) {
+            Snackbar.make(view, R.string.error_load_movie_details, Snackbar.LENGTH_SHORT).show()
+        } else {
+            insertMovieData(view)
+            val actorsAdapter: ActorsAdapter = actorsRecyclerView?.adapter as ActorsAdapter
+            actorsAdapter.apply {
+                movie?.actors?.let { bindActors(it) }
             }
         }
+
     }
 
     override fun onDetach() {
@@ -64,12 +58,15 @@ class FragmentMoviesDetails : Fragment() {
 
     private fun insertMovieData(view: View) {
 
-            view.findViewById<TextView>(R.id.movie_name).text = movie?.title
-            view.findViewById<TextView>(R.id.movie_genre).text = movie?.genres?.joinToString { it.name }
-            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie?.pgAge)
-            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie?.reviewCount)
-            view.findViewById<TextView>(R.id.movie_storyline).text = movie?.storyLine
-            view.findViewById<ImageView>(R.id.movie_poster).load(movie?.detailImageUrl)
+        val currentMovie = movie
+
+        if (currentMovie != null) {
+            view.findViewById<TextView>(R.id.movie_name).text = currentMovie.title
+            view.findViewById<TextView>(R.id.movie_genre).text = currentMovie.genres.joinToString { it.name }
+            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, currentMovie.pgAge)
+            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, currentMovie.reviewCount)
+            view.findViewById<TextView>(R.id.movie_storyline).text = currentMovie.storyLine
+            view.findViewById<ImageView>(R.id.movie_poster).load(currentMovie.detailImageUrl)
 
             val star1 = view.findViewById<ImageView>(R.id.star_1)
             val star2 = view.findViewById<ImageView>(R.id.star_2)
@@ -78,11 +75,12 @@ class FragmentMoviesDetails : Fragment() {
             val star5 = view.findViewById<ImageView>(R.id.star_5)
 
             val starViews = listOf(star1, star2, star3, star4, star5)
-            movie?.rating?.let { setRating(it, starViews) }
+            setRating(currentMovie.rating, starViews)
 
             actorsRecyclerView = view.findViewById(R.id.actors_recyclerView)
             actorsRecyclerView?.adapter = ActorsAdapter()
             actorsRecyclerView?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        }
     }
 
     private fun setRating(rating: Int, starViews: List<ImageView>) {
