@@ -6,19 +6,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import ru.flethy.androidacademyassignments.model.Movie
 
 
 class MoviesAdapter(private val clickListener: OnMovieClick): RecyclerView.Adapter<MoviesViewHolder>() {
 
-    private var movies: List<Movie> = emptyList<Movie>()
+    private var movies: List<Movie> = emptyList()
 
     fun bindMovies(moviesList: List<Movie>) {
         movies = moviesList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        return MoviesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_holder_movie, parent, false))
+        return MoviesViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.view_holder_movie,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
@@ -50,15 +58,16 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun onBind(movie: Movie) {
 
-        movieName.text = movie.name
-        movieAge.text = context.getString(R.string.movie_age, movie.age)
-        movieGenre.text = movie.genre
+        movieName.text = movie.title
+        movieAge.text = context.getString(R.string.movie_age, movie.pgAge)
+        movieGenre.text = movie.genres.joinToString { it.name }
         movieReviewCount.text = context.getString(R.string.movie_review, movie.reviewCount)
-        movieDuration.text = context.getString(R.string.movie_duration, movie.duration)
+        movieDuration.text = context.getString(R.string.movie_duration, movie.runningTime)
         setRating(movie.rating, starViews)
         like.setImageResource(if (movie.isLiked) R.drawable.ic_like else R.drawable.ic_empty_like)
-        moviePoster.setImageResource(movie.poster)
 
+        moviePoster.clipToOutline = true
+        moviePoster.load(movie.imageUrl)
     }
 
     private fun setRating(rating: Int, starViews: List<ImageView>) {
@@ -66,7 +75,7 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             starViews[i].setImageResource(R.drawable.ic_star)
         }
         for (i in rating until starViews.size) {
-            starViews[i].setImageResource(R.drawable. ic_empty_star)
+            starViews[i].setImageResource(R.drawable.ic_empty_star)
         }
     }
 

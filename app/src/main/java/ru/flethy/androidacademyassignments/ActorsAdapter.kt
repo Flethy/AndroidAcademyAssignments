@@ -6,14 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import ru.flethy.androidacademyassignments.model.Actor
 
 class ActorsAdapter(): RecyclerView.Adapter<ActorsViewHolder>() {
 
-    private var actors: List<Actor> = emptyList<Actor>()
+    private var actors: List<Actor> = emptyList()
 
     fun bindActors(actorsList: List<Actor>) {
         actors = actorsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorsViewHolder {
@@ -40,10 +42,10 @@ class ActorsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val actorName: TextView = itemView.findViewById(R.id.actor_name)
 
     fun onBind(actor: Actor) {
-
         actorName.text = actor.name
-        actorImage.setImageResource(actor.photo)
 
+        actorImage.clipToOutline = true
+        actorImage.load(actor.imageUrl)
     }
 
 }

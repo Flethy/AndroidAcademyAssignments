@@ -2,7 +2,6 @@ package ru.flethy.androidacademyassignments
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.FrameLayout
 
 class MainActivity : AppCompatActivity() {
 

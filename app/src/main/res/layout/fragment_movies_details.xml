@@ -15,13 +15,14 @@
             android:id="@+id/movie_poster"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxHeight="300dp"
-            tools:src="@drawable/avengers_poster"
-            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="parent"
+            android:foreground="@drawable/poster_gradient"
+            android:maxHeight="300dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/back"

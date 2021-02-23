@@ -1,16 +1,17 @@
 package ru.flethy.androidacademyassignments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.flethy.androidacademyassignments.domain.ActorsDataSource
-import ru.flethy.androidacademyassignments.domain.MoviesDataSource
+import coil.api.load
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 import ru.flethy.androidacademyassignments.model.Movie
 
 class FragmentMoviesDetails : Fragment() {
@@ -36,19 +37,18 @@ class FragmentMoviesDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val movieId = it.getInt(MOVIE_ID_KEY)
-            movie = MoviesDataSource().getMovies().firstOrNull { it.id == movieId }
+            movie = it.getSerializable(MOVIE_ID_KEY) as Movie?
+        }
+        if (movie == null) {
+            Snackbar.make(view, R.string.error_load_movie_details, Snackbar.LENGTH_SHORT).show()
+        } else {
+            insertMovieData(view)
+            val actorsAdapter: ActorsAdapter = actorsRecyclerView?.adapter as ActorsAdapter
+            actorsAdapter.apply {
+                movie?.actors?.let { bindActors(it) }
+            }
         }
 
-        insertMovieData(view, movie)
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (actorsRecyclerView?.adapter as? ActorsAdapter)?.apply {
-            movie?.actors?.let { bindActors(it) }
-        }
     }
 
     override fun onDetach() {
@@ -56,15 +56,17 @@ class FragmentMoviesDetails : Fragment() {
         super.onDetach()
     }
 
-    private fun insertMovieData(view: View, movie: Movie?) {
+    private fun insertMovieData(view: View) {
 
-        if (movie != null) {
-            view.findViewById<TextView>(R.id.movie_name).text = movie.name
-            view.findViewById<TextView>(R.id.movie_genre).text = movie.genre
-            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, movie.age)
-            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, movie.reviewCount)
-            view.findViewById<TextView>(R.id.movie_storyline).text = movie.storyline
-            view.findViewById<ImageView>(R.id.movie_poster).setImageResource(movie.backgroundPoster ?: R.color.background)
+        val currentMovie = movie
+
+        if (currentMovie != null) {
+            view.findViewById<TextView>(R.id.movie_name).text = currentMovie.title
+            view.findViewById<TextView>(R.id.movie_genre).text = currentMovie.genres.joinToString { it.name }
+            view.findViewById<TextView>(R.id.movie_age).text = getString(R.string.movie_age, currentMovie.pgAge)
+            view.findViewById<TextView>(R.id.movie_review_count).text = getString(R.string.movie_review, currentMovie.reviewCount)
+            view.findViewById<TextView>(R.id.movie_storyline).text = currentMovie.storyLine
+            view.findViewById<ImageView>(R.id.movie_poster).load(currentMovie.detailImageUrl)
 
             val star1 = view.findViewById<ImageView>(R.id.star_1)
             val star2 = view.findViewById<ImageView>(R.id.star_2)
@@ -73,15 +75,12 @@ class FragmentMoviesDetails : Fragment() {
             val star5 = view.findViewById<ImageView>(R.id.star_5)
 
             val starViews = listOf(star1, star2, star3, star4, star5)
-            setRating(movie.rating, starViews)
+            setRating(currentMovie.rating, starViews)
 
-            actorsRecyclerView = view.findViewById<RecyclerView>(R.id.actors_recyclerView)
+            actorsRecyclerView = view.findViewById(R.id.actors_recyclerView)
             actorsRecyclerView?.adapter = ActorsAdapter()
-
-            val layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            actorsRecyclerView?.layoutManager = layoutManager
-        } else
-            return
+            actorsRecyclerView?.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        }
     }
 
     private fun setRating(rating: Int, starViews: List<ImageView>) {
